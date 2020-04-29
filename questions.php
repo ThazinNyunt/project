@@ -9,12 +9,10 @@ $rows = getQuestion($courseId);
 
 if(isset($_POST['btnsubmit']))
 {
-    $question1 = $_POST['question-1'];
-    $question2 = $_POST['question-2'];
-
-    echo $question1;
-    echo $question2;
-    //header("Location: checkanswer.php"); 
+    if(isset($_POST['question-1'])= 1)
+    {
+        echo "success";
+    }
 }
 
 ?>
@@ -25,6 +23,7 @@ if(isset($_POST['btnsubmit']))
 <br/>
 <?php foreach($rows as $row): ?>
     <div >
+        <form action="questions.php" method="post">
         Q: <b><?php echo $row['question_text'];?></b><br>
         <?php 
             $answers = Array(
@@ -47,5 +46,6 @@ if(isset($_POST['btnsubmit']))
     <br>
 <?php endforeach; ?>
 <button type="submit" name="btnsubmit" class="btn btn-primary">Check Answer</button>
+</form>
 </div>
 
