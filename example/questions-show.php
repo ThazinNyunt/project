@@ -15,7 +15,18 @@ $rows[] = [
     "answer1" => "Clinton",
     "answer2" => "Obama",
     "answer3" => "Trump",
-    "answer4" => "Bush"
+    "answer4" => "Bush",
+    "correct_answer" => 3
+];
+
+$rows[] = [
+    "question_id" => 2,
+    "question_text" => "What is the color of sky?",
+    "answer1" => "Red",
+    "answer2" => "Green",
+    "answer3" => "Yellow",
+    "answer4" => "Blue",
+    "correct_answer" => 4
 ];
 ?>
 
@@ -31,10 +42,12 @@ $rows[] = [
                     4 => $row['answer4']
                 );
             ?>
+            <input type="hidden" name="correct_answer_for_question_<?php echo $row['question_id'];?>" 
+                value="<?php echo $row["correct_answer"] ?>">
             <?php for($i=1; $i<5; $i++): ?>
                     <div>
                         <input type="radio" 
-                            name="<?php echo $row['question_id'];?>" value="<?php echo $i; ?>">
+                            name="user_answer_for_question_<?php echo $row['question_id'];?>" value="<?php echo $i; ?>">
                         <?php echo $answers[$i]; ?>
                     </div>      
             <?php endfor;?>           
