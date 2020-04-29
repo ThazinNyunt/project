@@ -7,12 +7,21 @@ $courseId =$_GET['course_id'];
 $rows = getQuestion($courseId);
 //print_r($rows);
 
+if(isset($_POST['btnsubmit']))
+{
+    $question1 = $_POST['question-1'];
+    echo $question1;
+}
+
 ?>
 <div class="container bg-white">
 
 <h1 align="center">Questions</h1>
+<p style="float: right;">Total Question: <?php echo count($rows); ?></p>
+<br/>
 <?php foreach($rows as $row): ?>
     <div >
+        <form action="questions.php" method="post">
         Q: <b><?php echo $row['question_text'];?></b><br>
         <?php 
             $answers = Array(
@@ -24,14 +33,17 @@ $rows = getQuestion($courseId);
         ?>
         <?php for($i=1; $i<5; $i++): ?>
                 <div>
-                    <input type="radio" class="form-control"
-                        name="question-<?php echo $row['question_id'];?>" value="<?php echo $i; ?>">
-                    <?php echo $answers[$i]; ?>
+                    <label class="radio-inline">
+                        <input type="radio" name="question-<?php echo $row['question_id'];?>" value="<?php echo $i; ?>">
+                            <?php echo $answers[$i]; ?>
+                    </label>
+                    
                 </div>      
         <?php endfor;?>           
     </div>
     <br>
 <?php endforeach; ?>
-Total Question: <?php echo count($rows); ?>
+<button type="submit" name="btnsubmit" class="btn btn-primary">Check Answer</button>
+</form>
 </div>
 
