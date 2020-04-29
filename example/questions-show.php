@@ -42,12 +42,12 @@ $rows[] = [
                     4 => $row['answer4']
                 );
             ?>
-            <input type="hidden" name="correct_answer_for_question_<?php echo $row['question_id'];?>" 
+            <input type="hidden" name="<?php echo $row['question_id'];?>[correct_answer]" 
                 value="<?php echo $row["correct_answer"] ?>">
             <?php for($i=1; $i<5; $i++): ?>
                     <div>
                         <input type="radio" 
-                            name="user_answer_for_question_<?php echo $row['question_id'];?>" value="<?php echo $i; ?>">
+                            name="<?php echo $row['question_id'];?>[user_answer]" value="<?php echo $i; ?>">
                         <?php echo $answers[$i]; ?>
                     </div>      
             <?php endfor;?>           
