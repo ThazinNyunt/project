@@ -9,7 +9,7 @@ $rows = getQuestion($courseId);
 
 if(isset($_POST['btnsubmit']))
 {
-    $question1 = $_POST['question-1];
+    $question1 = $_POST['question-1'];
     echo $question1;
 }
 
