@@ -350,10 +350,10 @@ function getQuestion($courseId){
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function insertExamRecord($userId,$courseId,$result,$date){
+function insertExamRecord($userId,$courseId,$result,$total_question,$date){
     $connection = connectDb();
-    $result = $connection->query("Insert into exam_result (user_id,course_id,result,date)
-                                    Values('$userId','$courseId','$result','$date')");
+    $result = $connection->query("Insert into exam_result (user_id,course_id,result,total_question,date)
+                                    Values('$userId','$courseId','$result','$total_question','$date')");
     return $result;
 }
 ?>
