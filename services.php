@@ -349,6 +349,13 @@ function getQuestion($courseId){
     $result = $connection->query("SELECT * from question where course_id = ". $courseId);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
+function insertExamRecord($userId,$courseId,$result,$total_question,$date){
+    $connection = connectDb();
+    $result = $connection->query("Insert into exam_result (user_id,course_id,result,total_question,date)
+                                    Values('$userId','$courseId','$result','$total_question','$date')");
+    return $result;
+}
 ?>
 
 

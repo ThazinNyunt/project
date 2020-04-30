@@ -1,49 +1,46 @@
 <?php
-include('header_student.php');       
 include('services.php');
-include('form_library.php');
 
-$courseId =$_GET['course_id'];
-$rows = getQuestion($courseId);
-//print_r($rows);
+$data = $_POST;
 
-if(isset($_POST['btnsubmit']))
+$num = count($data);
+$total_question = count($data);
+$result = 0;
+while ($num > 0) 
 {
-    $question1 = $_POST['question-1'];
-    echo $question1;
+    $user_answer = $data[$num]['user_answer'];
+    $correct_answer = $data[$num]['correct_answer'];
+    if($user_answer == $correct_answer)
+    
+    { 
+        $result++; 
+    } 
+    $num--;
+}
+echo $date =date('Y-M-d');
+
+$row = insertExamRecord(3,1,$result,$total_question,$date);
+
+if(isset($row))
+{
+    echo "success";
 }
 
+$percentage = ($result*100)/$total_question;
 ?>
-<div class="container bg-white">
-
-<h1 align="center">Questions</h1>
-<p style="float: right;">Total Question: <?php echo count($rows); ?></p>
-<br/>
-<?php foreach($rows as $row): ?>
-    <div >
-        <form action="questions.php" method="post">
-        Q: <b><?php echo $row['question_text'];?></b><br>
-        <?php 
-            $answers = Array(
-                1 => $row['answer1'],
-                2 => $row['answer2'],
-                3 => $row['answer3'],
-                4 => $row['answer4']
-            );
-        ?>
-        <?php for($i=1; $i<5; $i++): ?>
-                <div>
-                    <label class="radio-inline">
-                        <input type="radio" name="question-<?php echo $row['question_id'];?>" value="<?php echo $i; ?>">
-                            <?php echo $answers[$i]; ?>
-                    </label>
-                    
-                </div>      
-        <?php endfor;?>           
-    </div>
+<div align="center">
+    <?php if($percentage>=50)
+            {
+                echo "<h1>Pass</h1>";
+            }
+            else
+            {
+                echo "<h1>Fail</h1>";
+            }
+    ?>
     <br>
-<?php endforeach; ?>
-<button type="submit" name="btnsubmit" class="btn btn-primary">Check Answer</button>
-</form>
+    <p>Your Result: <?php echo $result; ?>/<?php echo $total_question;?></p>
+    
+    <br>
+    <button type="submit" class="btn btn-primary">Download the certificate</button>
 </div>
-
