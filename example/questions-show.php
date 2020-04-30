@@ -31,6 +31,9 @@ $rows[] = [
 ?>
 
 <form method="POST" action="questions-post.php">
+    <input type="hidden" name="course_id" value="<?php echo $_GET['course_id']; ?>" />
+    <input type="hidden" name="user_id" value="<?php echo '11'; ?>" />
+
     <?php foreach($rows as $row): ?>
         <div >
             Q: <b><?php echo $row['question_text'];?></b><br>
@@ -42,12 +45,12 @@ $rows[] = [
                     4 => $row['answer4']
                 );
             ?>
-            <input type="hidden" name="<?php echo $row['question_id'];?>[correct_answer]" 
+            <input type="hidden" name="question[<?php echo $row['question_id'];?>][correct_answer]" 
                 value="<?php echo $row["correct_answer"] ?>">
             <?php for($i=1; $i<5; $i++): ?>
                     <div>
                         <input type="radio" 
-                            name="<?php echo $row['question_id'];?>[user_answer]" value="<?php echo $i; ?>">
+                            name="question[<?php echo $row['question_id'];?>][user_answer]" value="<?php echo $i; ?>">
                         <?php echo $answers[$i]; ?>
                     </div>      
             <?php endfor;?>           
