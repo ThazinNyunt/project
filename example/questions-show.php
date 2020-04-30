@@ -61,5 +61,10 @@ $rows[] = [
 </form>        
 
 
+<?php
+$date =date('Y-m-d');
+echo $date;
+?>
+
 </body>
 </html>
