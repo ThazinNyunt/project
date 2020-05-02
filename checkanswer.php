@@ -1,44 +1,36 @@
 <?php
+include('services.php');
 
-$data = $_POST;
-
-$num = count($data);
+$questions = $_POST['question'];
+$total_question = count($_POST['question']);
 $result = 0;
-while ($num > 0) 
-{
-    $user_answer = $data[$num]['user_answer'];
-    $correct_answer = $data[$num]['correct_answer'];
-    if($user_answer == $correct_answer)
-    
-    { 
-        $result++; 
-    } 
-    $num--;
-}
-echo $date =date('d-M-Y');
+foreach ($questions as $question) :
+    if ($question['correct_answer']==$question['user_answer']) 
+    {
+        $result++;
+    }
+endforeach;
+$percentage = ($result*100)/$total_question;
 
-$row = insertExamRecord(3,1,$result,$date);
+$date =date('Y-m-d');
+echo "DATE: " .$date;
+$row = insertExamRecord($_POST['user_id'],$_POST['course_id'],$result,$total_question,$date);
 
-if(isset($row))
-{
-    echo "success";
-}
-
-$percentage = ($result*100)/count($data);
 ?>
+
 <div align="center">
-    <?php if($percentage>=50)
-            {
-                echo "<h1>Pass</h1>";
-            }
-            else
-            {
-                echo "<h1>Fail</h1>";
-            }
-    ?>
     <br>
-    <p>Your Result: <?php echo $result; ?>/<?php echo count($data);?></p>
+    <p>Your Result: <?php echo $result; ?>/<?php echo $total_question;?></p>
+    <br>
+    <?php if($percentage>=50): ?>
+        <h1>Pass</h1>
+        <a href='certifcate.php' class='btn btn-primary'>Download Certificate</a>
+    <?php endif; ?>
+    <?php if($percentage<50): ?>
+        <h1>Fail</h1>
+        <a href="questions.php?course_id=<?php echo $_POST['course_id']; ?>" class="btn btn-primary">Try Again</a>
+    <?php endif; ?>
     
-    <br>
-    <button type="submit" class="btn btn-primary">Download the certificate</button>
+    
+
 </div>

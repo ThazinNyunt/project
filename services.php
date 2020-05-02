@@ -356,6 +356,27 @@ function insertExamRecord($userId,$courseId,$result,$total_question,$date){
                                     Values('$userId','$courseId','$result','$total_question','$date')");
     return $result;
 }
+
+function enrollCourse($userId,$courseId,$enroll_date){
+    $connection = connectDb();
+    $result = $connection->query("Insert into enroll (course_id,user_id,enroll_date)
+                                    Values('$courseId','$userId','$enroll_date')");
+    return $result;
+}
+
+function findEnrollCourse($courseId,$userId) {
+    $connection = connectDb();
+    $select = $connection->query("SELECT * from enroll WHERE course_id='$courseId' And user_id='$userId' ");
+    return count($select->fetch_assoc());
+
+}
+
+function findEnrollCourseByUserId($userId) {
+    $connection = connectDb();
+    $select = $connection->query("SELECT * from enroll WHERE user_id='$userId'");
+    return count($select->fetch_assoc());
+
+}
 ?>
 
 
